@@ -14,16 +14,18 @@ const io = socketio(server);
 
 const { addUser, removeUser, getUser, getUsersInRoom } = require("./users");
 
-app.use(router);
 app.use(cors());
 
 if (process.env.NODE_ENV === "production") {
-  server.use(express.static(path.join(__dirname, "client/build")));
+  app.use(express.static(path.join(__dirname, "client/build")));
 
-  server.get("*", (req, res) => {
+  app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "client/build", "index.html"));
   });
 }
+
+app.use(router);
+
 
 io.on("connection", socket => {
   socket.on("join", ({ name, room }, callback) => {
