@@ -1,11 +1,20 @@
 {
-  "name": "server",
+  "name": "chatting-app-server",
   "version": "1.0.0",
-  "description": "",
+  "engines": {
+    "node": "12.11.1",
+    "npm": "6.11.3"
+  },
+  "description": "Chatting App",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "client": "cd ../client && npm start",
+    "server": "nodemon index.js",
+    "build": "cd ../client && npm run build",
+    "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "heroku-postbuild": "cd ../client && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
   },
   "keywords": [],
   "author": "",
@@ -15,5 +24,8 @@
     "express": "^4.17.1",
     "nodemon": "^1.19.3",
     "socket.io": "^2.3.0"
+  },
+  "devDependencies": {
+    "concurrently": "^5.0.0"
   }
 }
