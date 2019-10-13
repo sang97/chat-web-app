@@ -14,6 +14,7 @@ const io = socketio(server);
 
 const { addUser, removeUser, getUser, getUsersInRoom } = require("./users");
 
+app.use(router);
 app.use(cors());
 
 if (process.env.NODE_ENV === "production") {
@@ -24,7 +25,6 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
-app.use(router);
 
 
 io.on("connection", socket => {
