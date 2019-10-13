@@ -6,26 +6,21 @@ const path = require("path");
 
 const PORT = process.env.PORT || 5000;
 
-const router = require("./router");
-
 const app = express();
 const server = http.createServer(app);
 const io = socketio(server);
 
 const { addUser, removeUser, getUser, getUsersInRoom } = require("./users");
 
-app.use(router);
 app.use(cors());
 
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "client/build")));
+  server.use(express.static(path.join(__dirname, "client/build")));
 
-  app.get("*", (req, res) => {
+  server.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "client/build", "index.html"));
   });
 }
-
-
 
 io.on("connection", socket => {
   socket.on("join", ({ name, room }, callback) => {
