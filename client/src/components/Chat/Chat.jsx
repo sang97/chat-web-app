@@ -19,11 +19,10 @@ const Chat = ({ location }) => {
   const [users, setUsers] = useState("");
 
   const ENDPOINT = "https://chatting-web-app-sang97.herokuapp.com/";
-  
+  // const ENDPOINT = "http://localhost:5000";
+
   useEffect(() => {
     const { name, room } = queryString.parse(location.search);
-
-
 
     socket = io(ENDPOINT);
 
