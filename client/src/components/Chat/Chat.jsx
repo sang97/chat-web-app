@@ -18,11 +18,14 @@ const Chat = ({ location }) => {
   const [messages, setMessages] = useState([]);
   const [users, setUsers] = useState("");
 
-
+  const ENDPOINT = "https://chatting-web-app-sang97.herokuapp.com/";
+  
   useEffect(() => {
     const { name, room } = queryString.parse(location.search);
 
-    socket = io();
+
+
+    socket = io(ENDPOINT);
 
     setName(name);
     setRoom(room);
@@ -50,7 +53,7 @@ const Chat = ({ location }) => {
 
     return () => {
       socket.emit("disconnect");
-      socket.disconnect();
+      socket.off();
     };
   }, [messages]);
 
